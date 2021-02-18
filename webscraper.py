@@ -30,7 +30,7 @@ def scraper():
     df = pd.DataFrame(data)
     df['Amount_Dollars'] = df['Amount_Dollars'].astype(float)
     df['Amount_BTC'] = df['Amount_BTC'].astype(float)
-    print(df.sort_values('Amount_Dollars', ascending=False).head(1).values)
+    print(df.sort_values('Amount_Dollars', ascending=False).head(1))
     
 try:
     while True:      
