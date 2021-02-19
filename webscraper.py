@@ -3,6 +3,7 @@ import requests
 import numpy as np
 import pandas as pd
 import time
+#import timeit
 
 def scraper():
     URL = requests.get('https://www.blockchain.com/btc/unconfirmed-transactions')
@@ -30,12 +31,24 @@ def scraper():
     df = pd.DataFrame(data)
     df['Amount_Dollars'] = df['Amount_Dollars'].astype(float)
     df['Amount_BTC'] = df['Amount_BTC'].astype(float)
-    print(df.sort_values('Amount_Dollars', ascending=False).head(1))
+    sort = df.sort_values('Amount_Dollars', ascending=False).head(1)
+    test = sort['Hashes'].values[0] +" " + sort['Time'].values[0] + " " + str(sort['Amount_BTC'].values[0]) +" "+ str(sort['Amount_Dollars'].values[0]) + "\n"
+    results = open("results.txt","a")
+    results.writelines(test)
+    results.close()
+    
     
 try:
-    while True:      
+    while True:
+        #start = timeit.default_timer()
+        
         scraper()
-        time.sleep(60)
+
+        #stop = timeit.default_timer()
+        
+        #print('Time: ', stop - start)    
+        
+        time.sleep(6)
 except KeyboardInterrupt:
     print('interrupted!')
 
