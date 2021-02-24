@@ -1,11 +1,13 @@
+#libraries
 from bs4 import BeautifulSoup
 import requests
 import numpy as np
 import pandas as pd
 import time
 import pymongo as mongo
-#import timeit
 
+
+#methods
 def scraper():
     URL = requests.get('https://www.blockchain.com/btc/unconfirmed-transactions')
     URL.raise_for_status()
@@ -37,19 +39,19 @@ def scraper():
     results = open("results.txt","a")
     results.writelines(test)
     results.close()
-    
-    
+
+#constants
+CLIENT = mongo.MongoClient ("mongodb://127.0.0.1:27017")    
+transactions = CLIENT["transactions"]
+col_amount_BTC = local_database["Amount_BTC"]
+
+
 try:
     while True:
-        #start = timeit.default_timer()
-        
+                
         scraper()
 
-        #stop = timeit.default_timer()
-        
-        #print('Time: ', stop - start)    
-        
-        time.sleep(6)
+        time.sleep(60)
 except KeyboardInterrupt:
     print('interrupted!')
 
