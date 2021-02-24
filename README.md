@@ -26,6 +26,7 @@ to install lxml:
 	pip3 install lxml
 
 to install pymongo
+
 	pip3 install pymongo
 	
 this script will scrape BTC transactions from blockchain every minute and pushes the largest transaction to a log file (results.txt).
