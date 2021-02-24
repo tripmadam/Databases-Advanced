@@ -42,16 +42,15 @@ def scraper():
 
 #constants
 CLIENT = mongo.MongoClient ("mongodb://127.0.0.1:27017")    
-transactions = CLIENT["transactions"]
-col_amount_BTC = local_database["Amount_BTC"]
-col_amount_USD = lacal_database["Amount_USD"]
+transactions_db = CLIENT["Transactions"]
+col_transactions = local_database["transactions"]
 
 try:
     while True:
                 
         scraper()
-
         time.sleep(60)
+
 except KeyboardInterrupt:
     print('interrupted!')
 
