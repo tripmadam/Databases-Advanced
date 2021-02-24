@@ -44,7 +44,7 @@ def scraper():
 CLIENT = mongo.MongoClient ("mongodb://127.0.0.1:27017")    
 transactions = CLIENT["transactions"]
 col_amount_BTC = local_database["Amount_BTC"]
-
+col_amount_USD = lacal_database["Amount_USD"]
 
 try:
     while True:
