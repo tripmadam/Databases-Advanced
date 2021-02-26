@@ -35,15 +35,22 @@ def scraper():
     df['Amount_Dollars'] = df['Amount_Dollars'].astype(float)
     df['Amount_BTC'] = df['Amount_BTC'].astype(float)
     sort = df.sort_values('Amount_Dollars', ascending=False).head(1)
-    test = sort['Hashes'].values[0] +" " + sort['Time'].values[0] + " " + str(sort['Amount_BTC'].values[0]) +" "+ str(sort['Amount_Dollars'].values[0]) + "\n"
-    results = open("results.txt","a")
-    results.writelines(test)
-    results.close()
+    hashvalue = sort['Hashes'].values[0]
+    timestamp = sort['Time'].values[0]
+    amount_btc = str(sort['Amount_BTC'].values[0])
+    amount_dollars = str(sort['Amount_Dollars'].values[0])
+
+    highest = {"Hash": hashvalue , "Time": timestamp , "Amount_BTC" : amount_btc , "Amount_USD" : amount_dollars }
+    x = col_transactions.insert_one(highest)
+
+    print(x.inserted_id)
+
+    
 
 #constants
 CLIENT = mongo.MongoClient ("mongodb://127.0.0.1:27017")    
 transactions_db = CLIENT["Transactions"]
-col_transactions = local_database["transactions"]
+col_transactions = transactions_db["transactions"]
 
 try:
     while True:
@@ -52,5 +59,5 @@ try:
         time.sleep(60)
 
 except KeyboardInterrupt:
-    print('interrupted!')
+    print(' interrupted!')
 
