@@ -35,6 +35,7 @@ def scraper():
     df['Amount_Dollars'] = df['Amount_Dollars'].astype(float)
     df['Amount_BTC'] = df['Amount_BTC'].astype(float)
     sort = df.sort_values('Amount_Dollars', ascending=False).head(1)
+
     hashvalue = sort['Hashes'].values[0]
     timestamp = sort['Time'].values[0]
     amount_btc = str(sort['Amount_BTC'].values[0])
@@ -43,7 +44,8 @@ def scraper():
     highest = {"Hash": hashvalue , "Time": timestamp , "Amount_BTC" : amount_btc , "Amount_USD" : amount_dollars }
     x = col_transactions.insert_one(highest)
 
-    print(x.inserted_id)
+    xID = x.inserted_id
+    print(col_transactions.find_one(xID))
 
     
 
