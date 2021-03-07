@@ -46,7 +46,7 @@ def push():
     topush = r.lrange(hashhighest,0,-1)
 
     
-    highest = {"Hash": topush[0], "Time": topush[1] , "Amount_BTC" : topush[2] , "Amount_USD" : topush[3] }
+    highest = {"Hash": topush[0].decode('utf-8'), "Time": topush[1].decode('utf-8') , "Amount_BTC" : topush[2].decode('utf-8') , "Amount_USD" : topush[3].decode('utf-8') }
     x = col_transactions.insert_one(highest)
 
     xID = x.inserted_id
