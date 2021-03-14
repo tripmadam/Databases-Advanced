@@ -6,7 +6,7 @@ import pandas as pd
 import time
 import pymongo as mongo
 import redis 
-r = redis.Redis()
+r = redis.Redis(host='localhost',port='6378')
 
 
 #methods
@@ -58,7 +58,7 @@ def push():
 
 
 #constants
-CLIENT = mongo.MongoClient ("mongodb://127.0.0.1:27017")    
+CLIENT = mongo.MongoClient ("mongodb://127.0.0.1:27018")    
 transactions_db = CLIENT["Transactions"]
 col_transactions = transactions_db["transactions"]
 keylist = []
@@ -83,5 +83,4 @@ try:
 
 except KeyboardInterrupt:
     print(' interrupted!')
-
 
