@@ -1,12 +1,12 @@
 #libraries
 from bs4 import BeautifulSoup
 import requests
-import numpy as np
-import pandas as pd
+# import numpy as np
+# import pandas as pd
 import time
 import pymongo as mongo
 import redis 
-r = redis.Redis(host='localhost',port='6378')
+r = redis.Redis(host='redis',port='6379')
 
 
 #methods
@@ -14,7 +14,7 @@ def scraper():
     URL = requests.get('https://www.blockchain.com/btc/unconfirmed-transactions')
     URL.raise_for_status()
 
-    soup = BeautifulSoup(URL.content, 'lxml')
+    soup = BeautifulSoup(URL.content, 'html.parser')
         
     transactions = soup.find_all('div', attrs={'class': 'sc-6nt7oh-0 PtIAf'})
    
@@ -58,7 +58,7 @@ def push():
 
 
 #constants
-CLIENT = mongo.MongoClient ("mongodb://127.0.0.1:27018")    
+CLIENT = mongo.MongoClient ("mongodb://mongo:27017")    
 transactions_db = CLIENT["Transactions"]
 col_transactions = transactions_db["transactions"]
 keylist = []

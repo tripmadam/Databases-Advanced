@@ -4,14 +4,26 @@ services:
 
   mongo:
     image: mongo
-    container_name: mongodb
+    #container_name: mongodb
     restart: always
     ports:
     - 27018:27017
 
   redis:
     image: redis
-    container_name: redis
+    #container_name: redis
     restart: always
     ports:
     - 6378:6379
+
+  mongoexpress:
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+    ports:
+    - 8081:8081    
+
+  scraper:
+    build: .
+    ports: 
+    - 5000:5000
